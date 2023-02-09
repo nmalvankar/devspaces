@@ -15,7 +15,6 @@ components:
   - attributes:
       che-code.eclipse.org/contribute-cpuLimit: true
       che-code.eclipse.org/contribute-cpuRequest: true
-      che-code.eclipse.org/contribute-endpoint/che-code: 3100
       che-code.eclipse.org/contribute-entry-point: true
       che-code.eclipse.org/contribute-memoryLimit: true
       che-code.eclipse.org/contribute-memoryRequest: true
@@ -27,32 +26,6 @@ components:
         - /checode/entrypoint-volume.sh
       cpuLimit: 500m
       cpuRequest: 30m
-      endpoints:
-        - exposure: none
-          name: debug
-          protocol: tcp
-          targetPort: 5005
-        - attributes:
-            contributed-by: che-code.eclipse.org
-            cookiesAuthEnabled: true
-            discoverable: false
-            type: main
-            urlRewriteSupported: true
-          exposure: public
-          name: che-code
-          path: '?tkn=eclipse-che'
-          protocol: https
-          secure: false
-          targetPort: 3100
-      env:
-        - name: CHE_DASHBOARD_URL
-          value: 'https://devspaces.apps.cluster-sw8bq.sw8bq.sandbox3102.opentlc.com'
-        - name: CHE_PLUGIN_REGISTRY_URL
-          value: 'https://devspaces.apps.cluster-sw8bq.sw8bq.sandbox3102.opentlc.com/plugin-registry/v3'
-        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
-          value: 'http://plugin-registry.devspaces-demo.svc:8080/v3'
-        - name: OPENVSX_REGISTRY_URL
-          value: 'https://open-vsx.org'
       image: 'registry.redhat.io/devspaces/udi-rhel8@sha256:8de469cc9131a42092bd66e0f27a52bbc9b9a449235abf5b900d172a1bd3c985'
       memoryLimit: 4Gi
       memoryRequest: 256Mi
