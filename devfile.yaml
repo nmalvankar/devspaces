@@ -1,49 +1,18 @@
 schemaVersion: 2.1.0
 metadata:
-  name: java-lombok
+  name: python-hello-world
   namespace: admin-devspaces
-attributes:
-  controller.devfile.io/devworkspace-config:
-    name: devworkspace-config
-  controller.devfile.io/storage-type: per-user
 projects:
-  - name: lombok-project-sample
-    git:
-      remotes:
-        origin: 'https://github.com/nmalvankar/devspaces.git'
-components:
-  - attributes:
-      che-code.eclipse.org/contribute-cpuLimit: true
-      che-code.eclipse.org/contribute-cpuRequest: true
-      che-code.eclipse.org/contribute-entry-point: true
-      che-code.eclipse.org/contribute-memoryLimit: true
-      che-code.eclipse.org/contribute-memoryRequest: true
-      che-code.eclipse.org/contributed-container: tools
-      che-code.eclipse.org/original-memoryLimit: 3Gi
-    container:
-      command:
-        - /checode/entrypoint-volume.sh
-      cpuLimit: 500m
-      cpuRequest: 30m
-      image: 'registry.redhat.io/devspaces/udi-rhel8@sha256:8de469cc9131a42092bd66e0f27a52bbc9b9a449235abf5b900d172a1bd3c985'
-      memoryLimit: 4Gi
-      memoryRequest: 256Mi
-      sourceMapping: /projects
-      volumeMounts:
-        - name: m2
-          path: /home/user/.m2
-        - name: checode
-          path: /checode
-    name: tools
-  - name: m2
-    volume:
-      size: 1G
+  - name: python-hello-world
+    zip:
+      location: 'http://devfile-registry.devspaces-demo.svc:8080/resources/v2/python-hello-world.zip'
+components: []
 commands:
   - exec:
-      commandLine: mvn clean install
-      component: tools
+      commandLine: python -m venv .venv && . .venv/bin/activate && python hello-world.py
+      component: python
       group:
-        isDefault: true
-        kind: build
-      workingDir: '${PROJECTS_ROOT}/lombok-project-sample'
-    id: build
+        kind: run
+      label: Run the application
+      workingDir: '${PROJECTS_ROOT}/python-hello-world'
+    id: run
