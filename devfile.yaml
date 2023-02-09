@@ -10,7 +10,7 @@ projects:
   - name: lombok-project-sample
     git:
       remotes:
-        origin: 'https://github.com/nmalvankar/spring-petclinic.git'
+        origin: 'https://github.com/nmalvankar/devspaces.git'
 components:
   - attributes:
       che-code.eclipse.org/contribute-cpuLimit: true
