@@ -36,8 +36,6 @@ components:
       volumeMounts:
         - name: venv
           path: /home/user/.venv
-        - name: remote-endpoint
-          path: /remote-endpoint
         - name: plugins
           path: /plugins
     name: python
