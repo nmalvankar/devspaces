@@ -4,7 +4,8 @@ metadata:
 projects:
   - name: python-hello-world
     git:
-      location: 'https://github.com/nmalvankar/devspaces.git'
+      remotes: 
+        origin: 'https://github.com/nmalvankar/devspaces.git'
 components:
   - attributes:
       app.kubernetes.io/name: python
