@@ -18,26 +18,21 @@ components:
         - sh
         - '-c'
         - '${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}'
-      env:
-        - name: PLUGIN_REMOTE_ENDPOINT_EXECUTABLE
-          value: /remote-endpoint/plugin-remote-endpoint
-        - name: THEIA_PLUGINS
-          value: 'local-dir:///plugins/sidecars/python'
-        - name: CHE_DASHBOARD_URL
-          value: 'https://devspaces.apps.cluster-gvpvj.gvpvj.sandbox1192.opentlc.com'
-        - name: CHE_PLUGIN_REGISTRY_URL
-          value: 'https://devspaces.apps.cluster-gvpvj.gvpvj.sandbox1192.opentlc.com/plugin-registry/v3'
-        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
-          value: 'http://plugin-registry.devspaces-demo.svc:8080/v3'
+#      env:
+#         - name: PLUGIN_REMOTE_ENDPOINT_EXECUTABLE
+#           value: /remote-endpoint/plugin-remote-endpoint
+#         - name: THEIA_PLUGINS
+#           value: 'local-dir:///plugins/sidecars/python'
+#         - name: CHE_DASHBOARD_URL
+#           value: 'https://devspaces.apps.cluster-gvpvj.gvpvj.sandbox1192.opentlc.com'
+#         - name: CHE_PLUGIN_REGISTRY_URL
+#           value: 'https://devspaces.apps.cluster-gvpvj.gvpvj.sandbox1192.opentlc.com/plugin-registry/v3'
+#         - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
+#           value: 'http://plugin-registry.devspaces-demo.svc:8080/v3'
       image: 'registry.redhat.io/devspaces/udi-rhel8@sha256:d55549aad15742f6f7310da0c7abc1e65dd5d3ad2e3efb8fbf414cf91b9efac7'
       memoryLimit: 2G
       mountSources: true
       sourceMapping: /projects
-      volumeMounts:
-        - name: venv
-          path: /home/user/.venv
-        - name: plugins
-          path: /plugins
     name: python
   - name: venv
     volume:
