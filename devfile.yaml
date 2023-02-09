@@ -1,11 +1,16 @@
 schemaVersion: 2.1.0
 metadata:
-  name: python-hello-world
+  name: java-lombok
   namespace: admin-devspaces
+attributes:
+  controller.devfile.io/devworkspace-config:
+    name: devworkspace-config
+  controller.devfile.io/storage-type: per-user
 projects:
-  - name: python-hello-world
-    zip:
-      location: 'http://devfile-registry.devspaces-demo.svc:8080/resources/v2/python-hello-world.zip'
+  - name: lombok-project-sample
+    git:
+      remotes:
+        origin: 'https://github.com/nmalvankar/spring-petclinic.git'
 components:
   - attributes:
       che-code.eclipse.org/contribute-cpuLimit: true
@@ -18,14 +23,18 @@ components:
       che-code.eclipse.org/contribute-memoryLimit: true
       che-code.eclipse.org/contribute-memoryRequest: true
       che-code.eclipse.org/contribute-volume-mount/checode: /checode
-      che-code.eclipse.org/contributed-container: python
-      che-code.eclipse.org/original-memoryLimit: 2G
+      che-code.eclipse.org/contributed-container: tools
+      che-code.eclipse.org/original-memoryLimit: 3Gi
     container:
       command:
         - /checode/entrypoint-volume.sh
       cpuLimit: 500m
       cpuRequest: 30m
       endpoints:
+        - exposure: none
+          name: debug
+          protocol: tcp
+          targetPort: 5005
         - attributes:
             contributed-by: che-code.eclipse.org
             cookiesAuthEnabled: true
@@ -72,25 +81,24 @@ components:
         - name: OPENVSX_REGISTRY_URL
           value: 'https://open-vsx.org'
       image: 'registry.redhat.io/devspaces/udi-rhel8@sha256:8de469cc9131a42092bd66e0f27a52bbc9b9a449235abf5b900d172a1bd3c985'
-      memoryLimit: 3.07G
+      memoryLimit: 4Gi
       memoryRequest: 256Mi
-      mountSources: true
       sourceMapping: /projects
       volumeMounts:
-        - name: venv
-          path: /home/user/.venv
+        - name: m2
+          path: /home/user/.m2
         - name: checode
           path: /checode
-    name: python
-  - name: venv
+    name: tools
+  - name: m2
     volume:
       size: 1G
 commands:
   - exec:
-      commandLine: python -m venv .venv && . .venv/bin/activate && python hello-world.py
-      component: python
+      commandLine: mvn clean install
+      component: tools
       group:
-        kind: run
-      label: Run the application
-      workingDir: '${PROJECTS_ROOT}/python-hello-world'
-    id: run
+        isDefault: true
+        kind: build
+      workingDir: '${PROJECTS_ROOT}/lombok-project-sample'
+    id: build
